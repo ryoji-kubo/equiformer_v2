@@ -499,6 +499,9 @@ class BaseTrainerV2(BaseTrainer):
             desc="device {}".format(rank),
             disable=disable_tqdm,
         ):
+            if i >= self.config["task"].get("num_eval_batches", float("inf")):
+                break
+
             # Forward.
             with torch.cuda.amp.autocast(enabled=self.scaler is not None):
                 out = self._forward(batch)

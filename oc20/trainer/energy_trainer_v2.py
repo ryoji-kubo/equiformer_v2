@@ -167,6 +167,9 @@ class EnergyTrainerV2(BaseTrainerV2):
             desc="device {}".format(rank),
             disable=disable_tqdm,
         ):
+            if i >= self.config["task"].get("num_eval_batches", float("inf")):
+                break
+
             with torch.cuda.amp.autocast(enabled=self.scaler is not None):
                 out = self._forward(batch)
 

@@ -196,6 +196,9 @@ class ForcesTrainerV2(BaseTrainerV2):
             desc="device {}".format(rank),
             disable=disable_tqdm,
         ):
+            if i >= self.config["task"].get("num_eval_batches", float("inf")):
+                break
+
             with torch.cuda.amp.autocast(enabled=self.scaler is not None):
                 out = self._forward(batch_list)
 
@@ -644,7 +647,7 @@ class ForcesTrainerV2(BaseTrainerV2):
         for i, batch in tqdm(
             enumerate(self.relax_loader), total=len(self.relax_loader)
         ):
-            if i >= self.config["task"].get("num_relaxation_batches", 1e9):
+            if i >= self.config["task"].get("num_relaxation_batches", float("inf")):
                 break
 
             # If all traj files already exist, then skip this batch
@@ -868,6 +871,9 @@ class ForcesTrainerV2(BaseTrainerV2):
             desc="device {}".format(rank),
             disable=disable_tqdm,
         ):
+            if i >= self.config["task"].get("num_eval_batches", float("inf")):
+                break
+
             with torch.cuda.amp.autocast(enabled=self.scaler is not None):
                 out = self._forward(batch)
             loss = self._compute_loss(out, batch)

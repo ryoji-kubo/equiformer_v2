@@ -126,6 +126,12 @@ Please refer to [here](docs/changelog.md).
     --amp
     ```
 
+    To run inference on the validation split with the pretrained model, first download the pretrained model following [this](#checkpoints). Then place the pretrained model in `checkpoints`. One example is specified in the following script
+    ```bash
+        sh scripts/train/oc20/s2ef/equiformer_v2/equiformer_v2_N@12_L@6_M@2_g@4_inf.sh
+    ```
+
+
 2. We train **EquiformerV2 (153M)** on OC20 **S2EF-All+MD** by running:
     ```bash
         sh scripts/train/oc20/s2ef/equiformer_v2/equiformer_v2_N@20_L@6_M@3_splits@all+md_g@multi-nodes.sh

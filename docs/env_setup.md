@@ -26,7 +26,7 @@
 
 - The correpsonding version of OC20 GitHub repository is [here](https://github.com/FAIR-Chem/fairchem/tree/f83d150b5fcb940b814f25043fb00914945b8708).
 
-- We need to modify `ocp/ocpmodels/common/utils.py` and add the following two lines after [Line 329](https://github.com/FAIR-Chem/fairchem/blob/f83d150b5fcb940b814f25043fb00914945b8708/ocpmodels/common/utils.py#L329) as shown below:
+- We need to modify <s>`ocp/ocpmodels/common/utils.py`</s> `fairchem/ocpmodels/common/utils.py` and add the following two lines after [Line 329](https://github.com/FAIR-Chem/fairchem/blob/f83d150b5fcb940b814f25043fb00914945b8708/ocpmodels/common/utils.py#L329) as shown below:
 ```diff
     finally:
 +       import nets
