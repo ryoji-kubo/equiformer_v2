@@ -60,17 +60,25 @@ The OC20 S2EF dataset can be downloaded by following instructions in their [GitH
 
 For example, we can download the OC20 S2EF-2M dataset by running:
 ```
-    cd ocp
+    cd ocp # no longer correct, use below cd
+    cd fairchem
     python scripts/download_data.py --task s2ef --split "2M" --num-workers 8 --ref-energy
+    # for downloading 200k split for debugging:
+    python scripts/download_data.py --task s2ef --split "200k" --num-workers 8 --ref-energy
 ```
 We also need to download the `"val_id"` data split to run training.
+
+```bash
+python scripts/download_data.py --task s2ef --split "val_id" --num-workers 8 --ref-energy
+```
 
 After downloading, place the datasets under `datasets/oc20/` by using `ln -s`:
 ```
     cd datasets
     mkdir oc20
     cd oc20
-    ln -s ~/ocp/data/s2ef s2ef
+    ln -s ~/ocp/data/s2ef s2ef # no longer correct
+    ln -s ../../fairchem/data/s2ef s2ef
 ```
 
 To train on different splits like All and All+MD, we can follow the same link above to download the datasets.
@@ -100,6 +108,22 @@ Please refer to [here](docs/changelog.md).
     We can also run training on 8 GPUs on 1 node:
     ```bash
         sh scripts/train/oc20/s2ef/equiformer_v2/equiformer_v2_N@12_L@6_M@2_splits@2M_g@8.sh
+    ```
+
+    We can also run training on 2 GPUs on 1 node for the 200k data split:
+    ```bash
+        sh scripts/train/oc20/s2ef/equiformer_v2/equiformer_v2_N@12_L@6_M@2_splits@200k_g@2.sh
+    ```
+
+    To run it sequentially with 1 GPU on the 200k data split:
+    ```bash
+    python main_oc20.py \
+    --num-gpus 1 \
+    --mode train \
+    --config-yml 'oc20/configs/s2ef/200k/equiformer_v2/equiformer_v2_N@12_L@6_M@2.yml' \
+    --run-dir 'models/oc20/s2ef/200k/equiformer_v2/N@12_L@6_M@2/bs@32_lr@2e-4_wd@1e-3_epochs@12_warmup-epochs@0.1_g@1' \
+    --print-every 200 \
+    --amp
     ```
 
 2. We train **EquiformerV2 (153M)** on OC20 **S2EF-All+MD** by running:

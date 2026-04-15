@@ -19,7 +19,8 @@
 - After setting up the environment, clone OC20 GitHub repository:
 ```
     git clone https://github.com/FAIR-Chem/fairchem.git
-    cd ocp
+    cd ocp # no longer correct, use the below cd
+    cd fairchem
     git checkout f83d150
 ```
 
