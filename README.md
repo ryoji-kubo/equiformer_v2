@@ -72,6 +72,8 @@ We also need to download the `"val_id"` data split to run training.
 python scripts/download_data.py --task s2ef --split "val_id" --num-workers 8 --ref-energy
 ```
 
+For validation on all four subsplits for inference, you have to repeat the above process for `"val_ood_ads"`, `"val_ood_cat"`, and `"val_ood_both"`.
+
 After downloading, place the datasets under `datasets/oc20/` by using `ln -s`:
 ```
     cd datasets
@@ -82,6 +84,22 @@ After downloading, place the datasets under `datasets/oc20/` by using `ln -s`:
 ```
 
 To train on different splits like All and All+MD, we can follow the same link above to download the datasets.
+
+You also need to create `metadata.npz` for load balancing.
+
+- We need to modify `fairchem/scripts/make_lmdb_sizes.py` and modify line 21 as follows:
+```diff
+    neighbors = None
+-   if hasattr(data, "edge_index"):
++   if getattr(data, "edge_index", None) is not None:
+        neighbors = data.edge_index.shape[1]
+```
+
+Afterwards, perform the following:
+```bash
+cd fairchem
+python scripts/make_lmdb_sizes.py --data-path data/s2ef/200k/train --num-workers 8
+```
 
 
 ## Changelog ##
@@ -130,6 +148,17 @@ Please refer to [here](docs/changelog.md).
     ```bash
         sh scripts/train/oc20/s2ef/equiformer_v2/equiformer_v2_N@12_L@6_M@2_g@4_inf.sh
     ```
+**Reproduction Result**
+
+|Model	|Split	|Download	|val force MAE (meV / Å) |val energy MAE (meV) |
+|---	|---	|---	|---	|---	| 
+|EquiformerV2 (Reported)	|2M	|[checkpoint](https://dl.fbaipublicfiles.com/opencatalystproject/models/2023_06/oc20/s2ef/eq2_83M_2M.pt) \| [config](oc20/configs/s2ef/2M/equiformer_v2/equiformer_v2_N@12_L@6_M@2_epochs@30.yml)	|19.4 | 278 |
+|Inf-only on val_iid split	|2M	|-|16.7 | 217 |
+|Inf-only on val_ood_ads split	|2M	|-|18.1|261|
+|Inf-only on val_ood_cat split	|2M	|-|19.3|271|
+|Inf-only on val_ood_both split	|2M	|-|23.5|365|
+|Inf-only on all val split (avg)	|2M	|-|19.4|278|
+
 
 
 2. We train **EquiformerV2 (153M)** on OC20 **S2EF-All+MD** by running:
