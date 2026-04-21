@@ -40,3 +40,7 @@
     pip install -e .
 ```
 
+- (Optional) Install huggingface for models:
+```
+pip install huggingface_hub
+```

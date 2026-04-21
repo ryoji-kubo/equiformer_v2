@@ -170,7 +170,7 @@ Please refer to [here](docs/changelog.md).
 |Inf-only on val_ood_both split	|2M	|-|23.5|365|
 |Inf-only on all val split (avg)	|2M	|-|19.4|278|
 | **Reproduction of Training** | | | | |
-|EquiformerV2 on val_iid split |200k |[checkpoint](checkpoints/eq2_83M_200k.pt) \| [config_train](oc20/configs/s2ef/200k/equiformer_v2/equiformer_v2_N@12_L@6_M@2_small_valid.yml) \| [config_eval](oc20/configs/s2ef/200k/equiformer_v2/equiformer_v2_N@12_L@6_M@2_inf.yml)	|31.2|347|
+|EquiformerV2 on val_iid split |200k |[checkpoint](https://huggingface.co/Ryoji/equiformer_v2_checkpoints/blob/main/eq2_83M_200k.pt) \| [training](https://wandb.ai/ryoji-nus/equiformer_v2/runs/2026-04-15-19-14-08?nw=nwusere1583584) \| [config_train](oc20/configs/s2ef/200k/equiformer_v2/equiformer_v2_N@12_L@6_M@2_small_valid.yml) \| [config_eval](oc20/configs/s2ef/200k/equiformer_v2/equiformer_v2_N@12_L@6_M@2_inf.yml)	|31.2|347|
 
 
 
