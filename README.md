@@ -148,16 +148,29 @@ Please refer to [here](docs/changelog.md).
     ```bash
         sh scripts/train/oc20/s2ef/equiformer_v2/equiformer_v2_N@12_L@6_M@2_g@4_inf.sh
     ```
+
+    We have also performed the training on a 200k split (`eq2_83M_200k.pt`) using the following two scripts:
+    ```bash
+    # for training
+    sh scripts/train/oc20/s2ef/equiformer_v2/equiformer_v2_N@12_L@6_M@2_splits@200k_g@4_small_valid.sh
+    # for testing
+    scripts/train/oc20/s2ef/equiformer_v2/equiformer_v2_N@12_L@6_M@2_splits@200k_g@4_val_inf.sh
+    ```
+
+
 **Reproduction Result**
 
 |Model	|Split	|Download	|val force MAE (meV / Å) |val energy MAE (meV) |
 |---	|---	|---	|---	|---	| 
 |EquiformerV2 (Reported)	|2M	|[checkpoint](https://dl.fbaipublicfiles.com/opencatalystproject/models/2023_06/oc20/s2ef/eq2_83M_2M.pt) \| [config](oc20/configs/s2ef/2M/equiformer_v2/equiformer_v2_N@12_L@6_M@2_epochs@30.yml)	|19.4 | 278 |
+| **Reproduction of Inference** | | | | |
 |Inf-only on val_iid split	|2M	|-|16.7 | 217 |
 |Inf-only on val_ood_ads split	|2M	|-|18.1|261|
 |Inf-only on val_ood_cat split	|2M	|-|19.3|271|
 |Inf-only on val_ood_both split	|2M	|-|23.5|365|
 |Inf-only on all val split (avg)	|2M	|-|19.4|278|
+| **Reproduction of Training** | | | | |
+|EquiformerV2 on val_iid split |200k |[checkpoint](checkpoints/eq2_83M_200k.pt) \| [config_train](oc20/configs/s2ef/200k/equiformer_v2/equiformer_v2_N@12_L@6_M@2_small_valid.yml) \| [config_eval](oc20/configs/s2ef/200k/equiformer_v2/equiformer_v2_N@12_L@6_M@2_inf.yml)	|31.2|347|
 
 
 
