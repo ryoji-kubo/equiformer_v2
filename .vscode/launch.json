@@ -1,0 +1,22 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug EquiformerV2 Train",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/main_oc20.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--num-gpus", "1",
+                "--mode", "train",
+                "--config-yml", "oc20/configs/s2ef/200k/equiformer_v2/equiformer_v2_N@12_L@6_M@2_small_valid_debug.yml",
+                "--run-dir", "models/oc20/s2ef/200k/equiformer_v2/debug",
+                "--print-every", "200",
+                "--amp"
+            ],
+            "cwd": "${workspaceFolder}",
+            "justMyCode": true
+        }
+    ]
+}
